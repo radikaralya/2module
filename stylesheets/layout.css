@@ -5,6 +5,7 @@
 body {
   background-color: black;
   font-family: "Inter";
+  overflow-x: hidden;
 }
 .perviscreen {
   margin: 0;
@@ -15,6 +16,10 @@ body {
   margin: auto;
   background-size: cover;
   background-position: center;
+}
+.perviscreen {
+  background-image: url("../images/1.svg");
+  animation: play 0.8s steps(5) infinite alternate;
 }
 .row {
   display: block;
@@ -36,13 +41,12 @@ body {
 /* ===== ЛОШАДЬ+КАМЕРА+ЗВЕЗДЫ ===== */
 .second-screen2 {
   position: relative;
-  width: 100vw;
-  min-height: 100vh;
+  width: 94vw;
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding: 5vh 0 0 0.1vw; /* 70px -> 5vh, 1px -> 0.1vw */
-  margin-left: -5vw; /* 70px -> 5vw */
+  justify-content: space-between;
+
+  margin-top: 5vw;
+  height: 48.6vw;
 }
 
 /* Контейнер для изображения и объектива */
@@ -50,8 +54,7 @@ body {
   position: relative;
   display: inline-block;
   transform: scaleX(1.1);
-  transform-origin: left;
-  margin-left: 3vw; /* для правильного позиционирования */
+  overflow: hidden;
 }
 
 /* Стили для лошади */
@@ -65,8 +68,8 @@ body {
 /* Объектив камеры ПО ЦЕНТРУ лошади */
 .camera-lens {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 45%;
+  left: 53%;
   transform: translate(-50%, -50%);
   z-index: 10;
   animation: scalePulse 3s ease-in-out infinite;
@@ -94,8 +97,8 @@ body {
 
 /* ЗВЕЗДА 1 */
 .star1 {
-  top: 10vh; /* % от высоты экрана */
-  left: 10vw; /* % от ширины экрана */
+  top: 3vw;
+  left: 8vw;
   width: 13.4vw;
   height: 13.4vw;
   animation: starBlink1 4s ease-in-out infinite;
@@ -104,8 +107,8 @@ body {
 
 /* ЗВЕЗДА 2 */
 .star2 {
-  top: 35vh; /* % от высоты экрана */
-  left: 40vw; /* % от ширины экрана */
+  top: 19.5vw;
+  left: 36.5vw;
   width: 23vw;
   height: 23vw;
   animation: starBlink2 3s ease-in-out infinite;
@@ -114,8 +117,7 @@ body {
 
 /* ===== МЕТЕР (ЗВУКОИЗМЕРИТЕЛЬ) ===== */
 .meter-container {
-  position: absolute;
-  top: 5vh;
+  position: relative;
   right: 10vw;
   z-index: 20;
 }
@@ -123,18 +125,19 @@ body {
 .meter {
   width: 25vw;
   height: 43vw;
-  border: 0.15vw solid #00ff00; /* 2px -> 0.15vw */
-  padding: 0.7vw; /* 10px -> 0.7vw */
-  margin: 0; /* убрал фиксированные margin */
+  border: 0.15vw solid #00ff00;
+  margin: 0;
 }
 
 /* цифры */
 .db-labels {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 0.7vw; /* 10px -> 0.7vw */
+  width: 25vw;
   color: #ffffff;
-  font-size: 1.2vw;
+  font-size: 2vw;
+  padding-bottom: 1vw;
+  margin-top: -2.5vw;
 }
 
 .db::before {
@@ -152,14 +155,14 @@ body {
 
 /* полосы */
 .bars {
-  height: calc(100% - 1.2vw); /* 16px -> 1.2vw */
+  height: 100%;
   display: flex;
   align-items: flex-end;
-  gap: 1.3vw; /* 18px -> 1.3vw */
+  gap: 0.8vw;
 }
 
 .bar {
-  width: 3.8vw; /* 54px -> 3.8vw */
+  width: 3.8vw;
   background: #00ff00;
   animation: bounce 1.2s infinite ease-in-out;
 }
@@ -188,87 +191,225 @@ body {
 }
 
 /* 3 экран 2 блока */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-.main {
-  width: 1200px;
-  height: 600px;
-}
-/* ===== СЕКЦИЯ ===== */
 
 .section {
   width: 100vw;
   height: 31.8vw;
   display: flex;
   position: relative;
-  margin-top: -200px;
+  /* margin-top: -46.8vw; */
 }
-
-/* ===== ЛЕВЫЙ БЛОК ===== */
+/* ===== ЗЕЛЕНЫЙ БЛОК ===== */
 .left {
-  width: 50%;
+  width: 50vw;
   background: #39ff14;
-  padding: 100px 80px;
   display: flex;
   align-items: center;
+  justify-content: center;
   position: relative;
   overflow: hidden;
+  min-height: 31.8vw;
 }
 
-/* ТЕКСТ */
-.text {
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
+.falling-words-container {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
 }
-
-/* Общие стили  */
-.text span {
-  font-size: 3.5vw;
+/* Падающие буквы/слова */
+.falling-word {
+  position: absolute;
+  font-size: 5vw;
   font-weight: 900;
-  letter-spacing: 8px;
-  position: relative;
-  display: block;
-  white-space: nowrap;
-  line-height: 1.2;
+  color: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+  text-transform: uppercase;
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.5);
 }
-/* Первые 2 строки (1 и 2) */
-.text span:nth-child(1),
-.text span:nth-child(2) {
-  animation: snakeLeftDown 8s infinite;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
+/* ===== ПОЗИЦИОНИРОВАНИЕ И АНИМАЦИЯ КАЖДОЙ БУКВЫ ===== */
 
-/* Вторые 2 строки (3 и 4) */
-.text span:nth-child(3),
-.text span:nth-child(4) {
-  animation: shakeBlur 3s infinite;
-  animation-timing-function: steps(2, end); /* дрожь */
+/* Первое слово: ОНО */
+.word-1 {
+  left: 10%;
+  animation: fallDown 4s infinite;
+  animation-delay: 0s;
 }
-
-/* Третьи 2 строки (5 и 6) */
-.text span:nth-child(5),
-.text span:nth-child(6) {
-  animation: snakeRightUp 8s infinite;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Задержки  */
-.text span:nth-child(2) {
+.word-2 {
+  left: 14%;
+  animation: chaoticFall 5s infinite;
   animation-delay: 0.2s;
 }
-
-.text span:nth-child(4) {
-  animation-delay: 0.1s;
+.word-3 {
+  left: 18%;
+  animation: dropFall 4.5s infinite;
+  animation-delay: 0.4s;
 }
 
-.text span:nth-child(6) {
-  animation-delay: 0.3s;
+/* Пробел */
+.word-4 {
+  display: none;
 }
+
+/* ВТОРОЕ слово: ВСЕГДА */
+.word-5 {
+  left: 22%;
+  animation: fallDown 4.2s infinite;
+  animation-delay: 0.6s;
+}
+.word-6 {
+  left: 26%;
+  animation: chaoticFall 5.2s infinite;
+  animation-delay: 0.8s;
+}
+.word-7 {
+  left: 30%;
+  animation: dropFall 4.7s infinite;
+  animation-delay: 1s;
+}
+.word-8 {
+  left: 34%;
+  animation: fallDown 4.4s infinite;
+  animation-delay: 1.2s;
+}
+.word-9 {
+  left: 38%;
+  animation: chaoticFall 5.4s infinite;
+  animation-delay: 1.4s;
+}
+.word-10 {
+  left: 42%;
+  animation: dropFall 4.9s infinite;
+  animation-delay: 1.6s;
+}
+
+/* Пробел */
+.word-11 {
+  display: none;
+}
+
+/* ТРЕТЬЕ слово: РЯДОМ */
+.word-12 {
+  left: 46%;
+  animation: fallDown 4.6s infinite;
+  animation-delay: 1.8s;
+}
+.word-13 {
+  left: 50%;
+  animation: chaoticFall 5.6s infinite;
+  animation-delay: 2s;
+}
+.word-14 {
+  left: 54%;
+  animation: dropFall 5.1s infinite;
+  animation-delay: 2.2s;
+}
+.word-15 {
+  left: 58%;
+  animation: fallDown 4.8s infinite;
+  animation-delay: 2.4s;
+}
+.word-16 {
+  left: 62%;
+  animation: chaoticFall 5.8s infinite;
+  animation-delay: 2.6s;
+}
+
+/* ЧЕТВЕРТОЕ слово: БЛИЖЕ */
+.word-17 {
+  left: 66%;
+  animation: fallDown 5s infinite;
+  animation-delay: 2.8s;
+}
+.word-18 {
+  left: 70%;
+  animation: chaoticFall 6s infinite;
+  animation-delay: 3s;
+}
+.word-19 {
+  left: 74%;
+  animation: dropFall 5.5s infinite;
+  animation-delay: 3.2s;
+}
+.word-20 {
+  left: 78%;
+  animation: fallDown 5.2s infinite;
+  animation-delay: 3.4s;
+}
+.word-21 {
+  left: 82%;
+  animation: chaoticFall 6.2s infinite;
+  animation-delay: 3.6s;
+}
+/* Пробел */
+.word-22 {
+  display: none;
+}
+
+/* ПЯТОЕ слово: ЧЕМ */
+.word-23 {
+  left: 86%;
+  animation: fallDown 5.4s infinite;
+  animation-delay: 3.8s;
+}
+.word-24 {
+  left: 90%;
+  animation: chaoticFall 6.4s infinite;
+  animation-delay: 4s;
+}
+.word-25 {
+  left: 94%;
+  animation: dropFall 5.9s infinite;
+  animation-delay: 4.2s;
+}
+
+/* Пробел */
+.word-26 {
+  display: none;
+}
+
+/* ШЕСТОЕ слово: КАЖЕТСЯ */
+.word-27 {
+  left: 10%;
+  animation: fallDown 5.6s infinite;
+  animation-delay: 4.4s;
+}
+.word-28 {
+  left: 14%;
+  animation: chaoticFall 6.6s infinite;
+  animation-delay: 4.6s;
+}
+.word-29 {
+  left: 18%;
+  animation: dropFall 6.1s infinite;
+  animation-delay: 4.8s;
+}
+.word-30 {
+  left: 22%;
+  animation: fallDown 5.8s infinite;
+  animation-delay: 5s;
+}
+.word-31 {
+  left: 26%;
+  animation: chaoticFall 6.8s infinite;
+  animation-delay: 5.2s;
+}
+.word-32 {
+  left: 30%;
+  animation: dropFall 6.3s infinite;
+  animation-delay: 5.4s;
+}
+.word-33 {
+  left: 34%;
+  animation: fallDown 6s infinite;
+  animation-delay: 5.6s;
+}
+
 /* ===== ПРАВЫЙ БЛОК ===== */
 .right {
   width: 50%;
@@ -344,4 +485,125 @@ body {
 .chetvertiscreen {
   background-image: url("../images/11.svg");
   animation: ffff 0.8s steps(5) infinite alternate;
+}
+.lastblock {
+  display: flex;
+  width: 100vw;
+  height: 35.8vw;
+  justify-content: center;
+  position: absolute;
+}
+.kartinka {
+  background-size: contain;
+  background-image: url("../images/17.svg");
+  width: 55vw;
+  height: 35.9vw;
+}
+
+.square {
+  margin-left: 40%;
+  margin-top: 28%;
+  width: 16vw;
+  height: 16vw;
+  background: transparent;
+  border: 0.25vw solid #39ff14;
+  /* z-index: 10; */
+  transform: translate(-50%, -50%);
+  animation: pulse 2s infinite;
+}
+.square2 {
+  margin-left: 77%;
+  margin-top: -12%;
+  width: 9vw;
+  height: 9vw;
+  background: transparent;
+  border: 0.25vw solid #39ff14;
+  z-index: 10;
+  transform: translate(-50%, -50%);
+  animation: pulse2 2s infinite;
+}
+
+.block2textpulse {
+  width: 50.9vw;
+  display: flex;
+  flex-direction: column;
+  height: 18vw;
+}
+.begi {
+  background-color: #00ff00;
+  flex-grow: 1;
+  display: grid;
+  font-size: 4vw;
+  font-weight: bold;
+  box-sizing: border-box;
+  /* overflow: hidden; */
+  white-space: nowrap;
+  text-align: center;
+}
+.begitext {
+  width: 100%;
+  height: 100vh;
+  background-color: #00ff00;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+/* ПРИМЕНЕНИЕ АНИМАЦИЙ */
+
+/* 1-я строка: движение ВПРАВО */
+.row1 {
+  animation: moveRight 5s linear infinite;
+  min-width: 200%;
+}
+
+/* 2-я строка: движение ВЛЕВО */
+.row2 {
+  animation: moveLeft 5s linear infinite;
+  min-width: 200%;
+}
+
+/* 3-я строка: движение ВПРАВО */
+.row3 {
+  animation: moveRight 5s linear infinite;
+  min-width: 200%;
+}
+
+/* 4-я строка: движение ВЛЕВО */
+.row4 {
+  animation: moveLeft 5s linear infinite;
+  min-width: 200%;
+}
+
+.imgpulse {
+  width: 50.9vw;
+  height: 17.8vw;
+  margin-bottom: -18.4vw;
+  background-size: cover;
+}
+.imgpulse {
+  background-image: url("../images/19.svg");
+  animation: pulseplay 0.5s steps(2) infinite alternate;
+  animation-timing-function: step-end;
+}
+.footer {
+  width: 100%;
+  height: 4vw;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin-top: 36%;
+  margin-left: 1%;
+}
+.footertext {
+  position: relative;
+  color: #ffffff;
+  font-size: 1.8vw;
+  margin-top: 0.4vw;
+}
+.fio {
+  margin-left: 69vw;
+}
+.group {
+  margin-left: 0.8vw;
 }

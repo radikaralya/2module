@@ -232,8 +232,6 @@ body {
   text-transform: uppercase;
   -webkit-text-stroke: 1px rgba(0, 0, 0, 0.5);
 }
-/* ===== ПОЗИЦИОНИРОВАНИЕ И АНИМАЦИЯ КАЖДОЙ БУКВЫ ===== */
-
 /* Первое слово: ОНО */
 .word-1 {
   left: 10%;

@@ -10,16 +10,14 @@
   .left,
   .right {
     width: 90vw;
-    min-height: 30vw; /* под iPad */
+    min-height: 30vw;
     left: 5%;
   }
 
-  /* чуть уменьшаем падающий текст, чтобы не душил */
   .falling-word {
     font-size: 6vw;
   }
 
-  /* радар по центру и не огромный */
   .radar {
     transform: translate(-50%, -50%) scale(0.8);
   }
